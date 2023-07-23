@@ -46,5 +46,30 @@ namespace IMS.BL
                 Console.WriteLine(product);
             }
         }
+
+        private Product FindProduct(String productName)
+        {
+            var product = Products.Find(_product => _product.Name == productName);
+            return product;
+        }
+
+        public void SearchProduct(String productName)
+        {
+            if (String.IsNullOrWhiteSpace(productName) || String.IsNullOrEmpty(productName))
+            {
+                throw new InvalidOperationException("please enter a non-empty string"); 
+            }
+
+            var product = FindProduct(productName);
+            if (product == null)
+            {
+                Console.WriteLine("The product was not found.");
+            }
+            else
+            {
+                Console.WriteLine(product); 
+            }
+        }
+
     }
 }
