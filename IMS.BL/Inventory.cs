@@ -34,5 +34,17 @@ namespace IMS.BL
             var product = new Product(name, price, quantity);
             return AddProduct(product);
         }
+
+        public void ViewProducts()
+        {
+            if (Products.Count == 0)
+            {
+                Console.WriteLine("There is no products in the inventory.");
+            }
+            foreach (var product in Products)
+            {
+                Console.WriteLine(product);
+            }
+        }
     }
 }
