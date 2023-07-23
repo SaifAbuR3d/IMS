@@ -18,15 +18,21 @@ namespace IMS.BL
         {
             if (product == null)
             {
-                return false;
+                throw new ArgumentNullException("Product cannot be null.");
             }
             if (Products.Exists(_product => _product.Name == product.Name))
             {
-                return false;
+                throw new InvalidOperationException("The product name already exists.");
             }
 
             Products.Add(product);
+            Console.WriteLine("The product has been added successfully");
             return true;
+        }
+        public bool AddProduct(string name, decimal price, int quantity)
+        {
+            var product = new Product(name, price, quantity);
+            return AddProduct(product);
         }
     }
 }
