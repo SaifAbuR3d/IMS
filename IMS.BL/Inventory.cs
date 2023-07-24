@@ -41,13 +41,13 @@
             }
         }
 
-        private Product? FindProduct(String productName)
+        private Product? FindProduct(string productName)
         {
             var product = Products.Find(_product => _product.Name == productName);
             return product;
         }
 
-        public void SearchProduct(String productName)
+        public void SearchProduct(string productName)
         {
             if (String.IsNullOrWhiteSpace(productName) || String.IsNullOrEmpty(productName))
             {
