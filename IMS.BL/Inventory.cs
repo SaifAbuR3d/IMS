@@ -57,7 +57,7 @@ namespace IMS.BL
         {
             if (String.IsNullOrWhiteSpace(productName) || String.IsNullOrEmpty(productName))
             {
-                throw new InvalidOperationException("please enter a non-empty string"); 
+                throw new InvalidOperationException("Please enter a non-empty string"); 
             }
 
             var product = FindProduct(productName);
@@ -69,6 +69,30 @@ namespace IMS.BL
             {
                 Console.WriteLine(product); 
             }
+        }
+
+        public void UpdateProduct(string productName, string? newProductName,
+                                  decimal? newProductPrice, int? newProductQuantity)
+        {
+            var product = FindProduct(productName);
+            if (product == null)
+            {
+                Console.WriteLine("The product was not found.");
+                return; 
+            }
+            if (newProductName != null)
+            {
+                product.Name = newProductName; 
+            }
+            if (newProductPrice != null) 
+            {
+                product.Price = (decimal)newProductPrice; 
+            }
+            if (newProductQuantity != null)
+            {
+                product.Quantity = (int)newProductQuantity;  
+            }
+            Console.WriteLine("The product was successfully updated"); 
         }
 
     }
