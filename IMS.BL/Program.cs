@@ -39,7 +39,7 @@ public class Program
 
     static void Main()
     {
-        Console.WriteLine("----------------  Inventory Management System ----------------");
+        Console.WriteLine("----------------  Inventory Management System ----------------\n\n\n\n");
 
         Inventory inventory = new();
         bool exit = false;
@@ -69,9 +69,9 @@ public class Program
                     break;
                 case 3:
                     string productToEdit = getValidString("Enter product name to edit: ");
-                    string newName = getValidString("Enter new product name if wanted, otherwise press enter: ");
-                    decimal newPrice = getValidDecimal("Enter new product price if wanted, otherwise press enter: ");
-                    int newQuantity = getValidInt("Enter new product quantity if wanted, otherwise press enter: ");
+                    string newName = getValidString("Enter new product name if wanted, otherwise enter -1: ");
+                    decimal newPrice = getValidDecimal("Enter new product price if wanted, otherwise enter -1: ");
+                    int newQuantity = getValidInt("Enter new product quantity if wanted, otherwise enter -1: ");
 
                     inventory.UpdateProduct(productToEdit, newName, newPrice, newQuantity);
                     break;

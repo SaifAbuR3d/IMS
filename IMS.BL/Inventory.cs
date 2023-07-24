@@ -80,15 +80,15 @@ namespace IMS.BL
                 Console.WriteLine("The product was not found.");
                 return;
             }
-            if (newProductName != null)
+            if (newProductName is not null and not ("-1"))
             {
                 product.Name = newProductName;
             }
-            if (newProductPrice != null)
+            if (newProductPrice is not null and not (-1))
             {
                 product.Price = (decimal)newProductPrice;
             }
-            if (newProductQuantity != null)
+            if (newProductQuantity is not null and not (-1))
             {
                 product.Quantity = (int)newProductQuantity;
             }
