@@ -18,7 +18,7 @@ namespace IMS.BL
         {
             if (product == null)
             {
-                throw new ArgumentNullException("Product cannot be null.");
+                throw new ArgumentNullException("product cannot be null.");
             }
             if (Products.Exists(_product => _product.Name == product.Name))
             {
@@ -47,7 +47,7 @@ namespace IMS.BL
             }
         }
 
-        private Product FindProduct(String productName)
+        private Product? FindProduct(String productName)
         {
             var product = Products.Find(_product => _product.Name == productName);
             return product;
