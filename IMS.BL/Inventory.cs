@@ -57,7 +57,7 @@ namespace IMS.BL
         {
             if (String.IsNullOrWhiteSpace(productName) || String.IsNullOrEmpty(productName))
             {
-                throw new InvalidOperationException("Please enter a non-empty string"); 
+                throw new InvalidOperationException("Please enter a non-empty string");
             }
 
             var product = FindProduct(productName);
@@ -67,7 +67,7 @@ namespace IMS.BL
             }
             else
             {
-                Console.WriteLine(product); 
+                Console.WriteLine(product);
             }
         }
 
@@ -78,22 +78,35 @@ namespace IMS.BL
             if (product == null)
             {
                 Console.WriteLine("The product was not found.");
-                return; 
+                return;
             }
             if (newProductName != null)
             {
-                product.Name = newProductName; 
+                product.Name = newProductName;
             }
-            if (newProductPrice != null) 
+            if (newProductPrice != null)
             {
-                product.Price = (decimal)newProductPrice; 
+                product.Price = (decimal)newProductPrice;
             }
             if (newProductQuantity != null)
             {
-                product.Quantity = (int)newProductQuantity;  
+                product.Quantity = (int)newProductQuantity;
             }
-            Console.WriteLine("The product was successfully updated"); 
+            Console.WriteLine("The product was successfully updated.");
         }
 
+        public void RemoveProduct(string productName)
+        {
+            var product = FindProduct(productName);
+            if (product == null)
+            {
+                Console.WriteLine("There is no such product.");
+            }
+            else
+            {
+                Products.Remove(product);
+                Console.WriteLine("The product was successfully deleted.");
+            }
+        }
     }
 }
