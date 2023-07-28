@@ -6,7 +6,7 @@
         {
             Products = new List<Product>();
         }
-        public List<Product> Products { get; set; }
+        private List<Product> Products { get; }
 
         public bool AddProduct(Product product)
         {
