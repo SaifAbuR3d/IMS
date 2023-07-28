@@ -13,13 +13,7 @@ namespace IMS.UI
 
             do
             {
-                Console.WriteLine("[1]. Add a product");
-                Console.WriteLine("[2]. View all products");
-                Console.WriteLine("[3]. Edit a product");
-                Console.WriteLine("[4]. Delete a product");
-                Console.WriteLine("[5]. Search for a product");
-                Console.WriteLine("[6]. Exit");
-
+                DisplayMenu();
                 int choice = UserInputHandler.GetValidInt("Enter your choice:  ");
 
                 switch (choice)
@@ -61,6 +55,15 @@ namespace IMS.UI
                 Console.WriteLine();
                 Console.WriteLine();
             } while (!exit);
+        }
+        private static void DisplayMenu()
+        {
+            Console.WriteLine("[1]. Add a product");
+            Console.WriteLine("[2]. View all products");
+            Console.WriteLine("[3]. Edit a product");
+            Console.WriteLine("[4]. Delete a product");
+            Console.WriteLine("[5]. Search for a product");
+            Console.WriteLine("[6]. Exit");
         }
     }
 }

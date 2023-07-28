@@ -1,4 +1,5 @@
-﻿internal static class UserInputHandler
+﻿// can add (optional) error messages and further input (range) validation
+internal static class UserInputHandler
 {
 
     public static decimal GetValidDecimal(string output)
@@ -26,7 +27,7 @@
     public static string GetValidString(string output)
     {
         string? input = null;
-        while (String.IsNullOrEmpty(input) || String.IsNullOrWhiteSpace(input))
+        while (String.IsNullOrWhiteSpace(input))
         {
             Console.Write(output);
             input = Console.ReadLine();

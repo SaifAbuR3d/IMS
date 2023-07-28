@@ -44,7 +44,7 @@
         }
         public Product(string name, decimal price, int quantity)
         {
-            if (String.IsNullOrWhiteSpace(name) || String.IsNullOrEmpty(name))
+            if (String.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentException("Product name cannot be null or whitespace.");
             }

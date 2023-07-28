@@ -49,7 +49,7 @@
 
         public void SearchProduct(string productName)
         {
-            if (String.IsNullOrWhiteSpace(productName) || String.IsNullOrEmpty(productName))
+            if (String.IsNullOrWhiteSpace(productName))
             {
                 throw new InvalidOperationException("Please enter a non-empty string");
             }
