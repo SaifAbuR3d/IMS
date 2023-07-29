@@ -54,6 +54,7 @@ namespace IMS.UI
 
                 Console.WriteLine();
                 Console.WriteLine();
+                System.Threading.Thread.Sleep(1000);
             } while (!exit);
         }
         private static void DisplayMenu()

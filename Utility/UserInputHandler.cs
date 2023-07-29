@@ -1,5 +1,5 @@
 ﻿// can add (optional) error messages and further input (range) validation
-internal static class UserInputHandler
+public static class UserInputHandler
 {
 
     public static decimal GetValidDecimal(string output)
