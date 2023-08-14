@@ -14,7 +14,7 @@ namespace IMS.UI
             do
             {
                 DisplayMenu();
-                int choice = UserInputHandler.GetValidInt("Enter your choice:  ");
+                int choice = UserInputHandler.GetValidInt("Enter your choice:  " );
 
                 switch (choice)
                 {
