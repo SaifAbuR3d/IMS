@@ -6,7 +6,7 @@ namespace IMS.UI
     {
         static void Main()
         {
-            Console.WriteLine("----------------  Inventory Management System ----------------\n\n");
+            Console.WriteLine("----------------  Inventory Management System  ----------------\n\n");
 
             Inventory inventory = new();
             bool exit = false;
