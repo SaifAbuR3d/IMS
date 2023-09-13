@@ -1,4 +1,5 @@
 ﻿using IMS.BL;
+using Utility;
 
 namespace IMS.UI
 {
@@ -14,14 +15,14 @@ namespace IMS.UI
             do
             {
                 DisplayMenu();
-                int choice = UserInputHandler.GetValidInt("Enter your choice:  ");
+                int choice = UserInputHelper.GetValidInt("Enter your choice:  ");
 
                 switch (choice)
                 {
                     case 1:
-                        string name = UserInputHandler.GetValidString("Enter product name: ");
-                        decimal price = UserInputHandler.GetValidDecimal("Enter product price: ");
-                        int quantity = UserInputHandler.GetValidInt("Enter product quantity: ");
+                        string name = UserInputHelper.GetValidString("Enter product name: ");
+                        decimal price = UserInputHelper.GetValidDecimal("Enter product price: ");
+                        int quantity = UserInputHelper.GetValidInt("Enter product quantity: ");
 
                         inventory.AddProduct(name, price, quantity);
                         break;
@@ -29,19 +30,19 @@ namespace IMS.UI
                         inventory.ViewProducts();
                         break;
                     case 3:
-                        string productToEdit = UserInputHandler.GetValidString("Enter product name to edit: ");
-                        string newName = UserInputHandler.GetValidString("Enter new product name if wanted, otherwise enter -1: ");
-                        decimal newPrice = UserInputHandler.GetValidDecimal("Enter new product price if wanted, otherwise enter -1: ");
-                        int newQuantity = UserInputHandler.GetValidInt("Enter new product quantity if wanted, otherwise enter -1: ");
+                        string productToEdit = UserInputHelper.GetValidString("Enter product name to edit: ");
+                        string newName = UserInputHelper.GetValidString("Enter new product name if wanted, otherwise enter -1: ");
+                        decimal newPrice = UserInputHelper.GetValidDecimal("Enter new product price if wanted, otherwise enter -1: ");
+                        int newQuantity = UserInputHelper.GetValidInt("Enter new product quantity if wanted, otherwise enter -1: ");
 
                         inventory.UpdateProduct(productToEdit, newName, newPrice, newQuantity);
                         break;
                     case 4:
-                        string productToDelete = UserInputHandler.GetValidString("Enter product name to delete: ");
+                        string productToDelete = UserInputHelper.GetValidString("Enter product name to delete: ");
                         inventory.RemoveProduct(productToDelete);
                         break;
                     case 5:
-                        string productToSearch = UserInputHandler.GetValidString("Enter product name to search: ");
+                        string productToSearch = UserInputHelper.GetValidString("Enter product name to search: ");
                         inventory.SearchProduct(productToSearch);
                         break;
                     case 6:

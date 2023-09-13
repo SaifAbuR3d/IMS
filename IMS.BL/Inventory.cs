@@ -10,7 +10,7 @@
 
         public bool AddProduct(Product product)
         {
-            if (product == null)
+            if (product is null)
             {
                 throw new ArgumentNullException("product cannot be null.");
             }
@@ -55,7 +55,7 @@
             }
 
             var product = FindProduct(productName);
-            if (product == null)
+            if (product is null)
             {
                 Console.WriteLine("The product was not found.");
             }
@@ -69,7 +69,7 @@
                                   decimal? newProductPrice, int? newProductQuantity)
         {
             var product = FindProduct(productName);
-            if (product == null)
+            if (product is null)
             {
                 Console.WriteLine("The product was not found.");
                 return;
@@ -92,7 +92,7 @@
         public void RemoveProduct(string productName)
         {
             var product = FindProduct(productName);
-            if (product == null)
+            if (product is null)
             {
                 Console.WriteLine("There is no such product.");
             }
