@@ -1,4 +1,6 @@
 ﻿using IMS.BL;
+using IMS.BL.DAL;
+using IMS.BL.Entities;
 using Utility;
 
 namespace IMS.UI
@@ -9,7 +11,8 @@ namespace IMS.UI
         {
             Console.WriteLine("----------------  Inventory Management System ----------------\n\n");
 
-            Inventory inventory = new();
+            IRepository<Product> repository = new ProductRepository();
+            var inventory = new Inventory (repository);
             bool exit = false;
 
             do

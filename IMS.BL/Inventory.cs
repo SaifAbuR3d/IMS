@@ -1,9 +1,15 @@
-﻿namespace IMS.BL
+﻿using IMS.BL.DAL;
+using IMS.BL.Entities;
+
+namespace IMS.BL
 {
     public class Inventory
     {
-        public Inventory()
+        private readonly IRepository<Product> _productRepository;
+
+        public Inventory(IRepository<Product> productRepository)
         {
+            _productRepository = productRepository;
             Products = new List<Product>();
         }
         private List<Product> Products { get; }
