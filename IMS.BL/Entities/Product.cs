@@ -1,4 +1,4 @@
-﻿namespace IMS.BL
+﻿namespace IMS.BL.Entities
 {
     public class Product
     {
@@ -44,7 +44,7 @@
         }
         public Product(string name, decimal price, int quantity)
         {
-            if (String.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentException("Product name cannot be null or whitespace.");
             }
@@ -61,5 +61,5 @@
             _quantity = quantity;
         }
         public override string ToString() => $"{Name}, Price: {Price}  In Stock: {Quantity}";
-    } 
+    }
 }
