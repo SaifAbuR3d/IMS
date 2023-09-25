@@ -9,6 +9,12 @@ namespace IMS.BL.DAL
 {
     public class ProductRepository : IRepository<Product>
     {
+        private readonly string _connectionString;
+
+        public ProductRepository(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
         public void Add(Product entity)
         {
             throw new NotImplementedException();
