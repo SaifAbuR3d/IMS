@@ -1,8 +1,8 @@
-﻿using IMS.BL.Entities;
+﻿using IMS.Entities;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace IMS.BL.DAL
+namespace IMS.DAL
 {
     public class ProductRepository : IProductRepository
     {
@@ -14,20 +14,16 @@ namespace IMS.BL.DAL
         }
         public void Add(string name, decimal price, int quantity)
         {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
 
-                using (var command = new SqlCommand("InsertProduct", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@Name", name);
-                    command.Parameters.AddWithValue("@Price", price);
-                    command.Parameters.AddWithValue("@Quantity", quantity);
+            using var command = new SqlCommand("InsertProduct", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@Name", name);
+            command.Parameters.AddWithValue("@Price", price);
+            command.Parameters.AddWithValue("@Quantity", quantity);
 
-                    command.ExecuteNonQuery();
-                }
-            }
+            command.ExecuteNonQuery();
         }
 
         public void Delete(Product entity)

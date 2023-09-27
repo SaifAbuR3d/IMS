@@ -1,6 +1,6 @@
-﻿using IMS.BL.Entities;
+﻿using IMS.Entities;
 
-namespace IMS.BL.DAL
+namespace IMS.DAL
 {
     public interface IProductRepository
     {

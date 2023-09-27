@@ -1,7 +1,7 @@
-﻿using IMS.BL.DAL;
-using IMS.BL.Entities;
+﻿using IMS.DAL;
+using IMS.Entities;
 
-namespace IMS.BL.Services
+namespace IMS.Services
 {
     public class Inventory
     {
@@ -18,7 +18,7 @@ namespace IMS.BL.Services
             if (!products.Any())
             {
                 Console.WriteLine("There are no products in the inventory.");
-                return; 
+                return;
             }
             foreach (var product in products)
             {
@@ -61,7 +61,7 @@ namespace IMS.BL.Services
             if (!ProductExists(productName))
             {
                 Console.WriteLine("The product was not found.");
-                return; 
+                return;
             }
             var product = _productRepository.GetByName(productName);
             Console.WriteLine(product);
@@ -113,7 +113,7 @@ namespace IMS.BL.Services
             if (product is null)
             {
                 Console.WriteLine("The product was not found.");
-                return; 
+                return;
             }
 
             _productRepository.Delete(product);

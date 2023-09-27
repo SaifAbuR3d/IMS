@@ -1,11 +1,9 @@
-﻿using IMS.BL;
-using IMS.BL.DAL;
-using IMS.BL.Entities;
-using IMS.BL.Services;
+﻿using IMS.Services;
+using IMS.DAL;
 using Microsoft.Extensions.Configuration;
 using Utility;
 
-namespace IMS.UI
+namespace IMS
 {
     public class Program
     {
@@ -13,7 +11,7 @@ namespace IMS.UI
         {
             Console.WriteLine("----------------  Inventory Management System ----------------\n\n");
 
-            
+
             IProductRepository repository = new ProductRepository(GetConnectionString());
             var inventory = new Inventory(repository);
             bool exit = false;
@@ -61,7 +59,7 @@ namespace IMS.UI
 
                 Console.WriteLine();
                 Console.WriteLine();
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
             } while (!exit);
         }
         private static void DisplayMenu()
@@ -79,7 +77,7 @@ namespace IMS.UI
             var configuration = new ConfigurationBuilder()
                                       .AddJsonFile("appsettings.json")
                                       .Build();
-            return configuration.GetSection("constr").Value; 
+            return configuration.GetSection("constr").Value;
         }
     }
 }

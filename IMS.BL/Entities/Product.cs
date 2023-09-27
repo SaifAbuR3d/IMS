@@ -1,4 +1,4 @@
-﻿namespace IMS.BL.Entities
+﻿namespace IMS.Entities
 {
     public class Product
     {
@@ -6,7 +6,7 @@
         private decimal _price;
         private int _quantity;
 
-        public int Id { get; set; } 
+        public int Id { get; set; }
 
         public string Name
         {
