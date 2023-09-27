@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IMS.BL.Entities;
+﻿using IMS.BL.Entities;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace IMS.BL.DAL
 {
-    public class ProductRepository : IRepository<Product>
+    public class ProductRepository : IProductRepository
     {
         private readonly string _connectionString;
 
@@ -15,29 +12,128 @@ namespace IMS.BL.DAL
         {
             _connectionString = connectionString;
         }
-        public void Add(Product entity)
+        public void Add(string name, decimal price, int quantity)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (var command = new SqlCommand("InsertProduct", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Name", name);
+                    command.Parameters.AddWithValue("@Price", price);
+                    command.Parameters.AddWithValue("@Quantity", quantity);
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public void Delete(Product entity)
         {
-            throw new NotImplementedException();
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            using var command = new SqlCommand("DeleteProduct", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@Id", entity.Id);
+
+            command.ExecuteNonQuery();
         }
 
         public IEnumerable<Product> GetAll()
         {
-            throw new NotImplementedException();
+            var products = new List<Product>();
+
+            using var connection = new SqlConnection(_connectionString);
+
+            connection.Open();
+
+            using var command = new SqlCommand("GetAllProducts", connection);
+            command.CommandType = CommandType.StoredProcedure;
+
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                var product = new Product
+                (
+                     (int)reader["Id"],
+                     (string)reader["Name"],
+                     (decimal)reader["Price"],
+                     (int)reader["Quantity"]
+                );
+
+                products.Add(product);
+            }
+
+            return products;
         }
 
-        public Product GetById(int id)
+        public Product? GetById(int id)
         {
-            throw new NotImplementedException();
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            using var command = new SqlCommand("GetProductById", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@Id", id);
+
+            using var reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                return new Product
+                (
+                     (int)reader["Id"],
+                     (string)reader["Name"],
+                     (decimal)reader["Price"],
+                     (int)reader["Quantity"]
+                );
+            }
+
+            return null;
         }
 
-        public void Update(Product entity)
+
+        public void Update(Product product)
         {
-            throw new NotImplementedException();
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            using var command = new SqlCommand("UpdateProduct", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@Id", product.Id);
+            command.Parameters.AddWithValue("@Name", product.Name);
+            command.Parameters.AddWithValue("@Price", product.Price);
+            command.Parameters.AddWithValue("@Quantity", product.Quantity);
+
+            command.ExecuteNonQuery();
         }
+
+
+        public Product? GetByName(string name)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            using SqlCommand command = new SqlCommand("GetProductByName", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@Name", name);
+
+            using SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                return new Product
+                (
+                     (int)reader["Id"],
+                     (string)reader["Name"],
+                     (decimal)reader["Price"],
+                     (int)reader["Quantity"]
+                );
+            }
+
+            return null;
+        }
+
     }
 }
