@@ -1,6 +1,8 @@
 ﻿using IMS.BL;
 using IMS.BL.DAL;
 using IMS.BL.Entities;
+using IMS.BL.Services;
+using Microsoft.Extensions.Configuration;
 using Utility;
 
 namespace IMS.UI
@@ -11,8 +13,9 @@ namespace IMS.UI
         {
             Console.WriteLine("----------------  Inventory Management System ----------------\n\n");
 
-            IRepository<Product> repository = new ProductRepository();
-            var inventory = new Inventory (repository);
+            
+            IProductRepository repository = new ProductRepository(GetConnectionString());
+            var inventory = new Inventory(repository);
             bool exit = false;
 
             do
@@ -69,6 +72,14 @@ namespace IMS.UI
             Console.WriteLine("[4]. Delete a product");
             Console.WriteLine("[5]. Search for a product");
             Console.WriteLine("[6]. Exit");
+        }
+
+        private static string GetConnectionString()
+        {
+            var configuration = new ConfigurationBuilder()
+                                      .AddJsonFile("appsettings.json")
+                                      .Build();
+            return configuration.GetSection("constr").Value; 
         }
     }
 }
