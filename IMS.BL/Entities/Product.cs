@@ -6,6 +6,8 @@
         private decimal _price;
         private int _quantity;
 
+        public int Id { get; set; } 
+
         public string Name
         {
             get => _name;
@@ -42,7 +44,7 @@
                 _quantity = value;
             }
         }
-        public Product(string name, decimal price, int quantity)
+        public Product(int id, string name, decimal price, int quantity)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -56,6 +58,7 @@
             {
                 throw new ArgumentException("Product quantity cannot be negative.");
             }
+            Id = id;
             _name = name;
             _price = price;
             _quantity = quantity;
