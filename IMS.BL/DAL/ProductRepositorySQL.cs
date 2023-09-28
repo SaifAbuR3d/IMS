@@ -1,39 +1,26 @@
 ﻿using IMS.Entities;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Diagnostics;
 
 namespace IMS.DAL
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepositorySQL : IProductRepository
     {
         private readonly string _connectionString;
 
-        public ProductRepository(string connectionString)
+        public ProductRepositorySQL(string connectionString)
         {
             _connectionString = connectionString;
         }
-        public void Add(string name, decimal price, int quantity)
-        {
-            using var connection = new SqlConnection(_connectionString);
-            connection.Open();
-
-            using var command = new SqlCommand("InsertProduct", connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@Name", name);
-            command.Parameters.AddWithValue("@Price", price);
-            command.Parameters.AddWithValue("@Quantity", quantity);
-
-            command.ExecuteNonQuery();
-        }
-
-        public void Delete(Product entity)
+        public void Delete(Product product)
         {
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
 
             using var command = new SqlCommand("DeleteProduct", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@Id", entity.Id);
+            command.Parameters.AddWithValue("@Name", product.Name);
 
             command.ExecuteNonQuery();
         }
@@ -54,7 +41,6 @@ namespace IMS.DAL
             {
                 var product = new Product
                 (
-                     (int)reader["Id"],
                      (string)reader["Name"],
                      (decimal)reader["Price"],
                      (int)reader["Quantity"]
@@ -65,32 +51,6 @@ namespace IMS.DAL
 
             return products;
         }
-
-        public Product? GetById(int id)
-        {
-            using var connection = new SqlConnection(_connectionString);
-            connection.Open();
-
-            using var command = new SqlCommand("GetProductById", connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@Id", id);
-
-            using var reader = command.ExecuteReader();
-            if (reader.Read())
-            {
-                return new Product
-                (
-                     (int)reader["Id"],
-                     (string)reader["Name"],
-                     (decimal)reader["Price"],
-                     (int)reader["Quantity"]
-                );
-            }
-
-            return null;
-        }
-
-
         public void Update(Product product)
         {
             using var connection = new SqlConnection(_connectionString);
@@ -98,7 +58,6 @@ namespace IMS.DAL
 
             using var command = new SqlCommand("UpdateProduct", connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@Id", product.Id);
             command.Parameters.AddWithValue("@Name", product.Name);
             command.Parameters.AddWithValue("@Price", product.Price);
             command.Parameters.AddWithValue("@Quantity", product.Quantity);
@@ -121,7 +80,6 @@ namespace IMS.DAL
             {
                 return new Product
                 (
-                     (int)reader["Id"],
                      (string)reader["Name"],
                      (decimal)reader["Price"],
                      (int)reader["Quantity"]
@@ -131,5 +89,18 @@ namespace IMS.DAL
             return null;
         }
 
+        public void Add(Product product)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            using var command = new SqlCommand("InsertProduct", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@Name", product.Name);
+            command.Parameters.AddWithValue("@Price", product.Price);
+            command.Parameters.AddWithValue("@Quantity", product.Quantity);
+
+            command.ExecuteNonQuery();
+        }
     }
 }
