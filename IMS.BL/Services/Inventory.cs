@@ -47,7 +47,7 @@ namespace IMS.Services
                 return false;
             }
 
-            _productRepository.Add(name, price, quantity);
+            _productRepository.Add(new Product(name, price, quantity));
             return true;
         }
 
@@ -67,8 +67,8 @@ namespace IMS.Services
             Console.WriteLine(product);
         }
 
-        public void UpdateProduct(string productName, string? newProductName,
-                                  decimal? newProductPrice, int? newProductQuantity)
+        public void UpdateProduct(string productName, decimal? newProductPrice,
+            int? newProductQuantity)
         {
             if (string.IsNullOrWhiteSpace(productName))
             {
@@ -80,11 +80,6 @@ namespace IMS.Services
             if (product is null)
             {
                 throw new InvalidOperationException("The product was not found.");
-            }
-
-            if (newProductName is not null and not "-1")
-            {
-                product.Name = newProductName;
             }
 
             if (newProductPrice is not null and not (-1))
