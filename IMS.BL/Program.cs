@@ -12,7 +12,7 @@ namespace IMS
             Console.WriteLine("----------------  Inventory Management System ----------------\n\n");
 
 
-            IProductRepository repository = new ProductRepository(GetConnectionString());
+            var repository = ProductRepositoryFactory.CreateProductRepository();
             var inventory = new Inventory(repository);
             bool exit = false;
 
@@ -35,11 +35,10 @@ namespace IMS
                         break;
                     case 3:
                         string productToEdit = UserInputHelper.GetValidString("Enter product name to edit: ");
-                        string newName = UserInputHelper.GetValidString("Enter new product name if wanted, otherwise enter -1: ");
                         decimal newPrice = UserInputHelper.GetValidDecimal("Enter new product price if wanted, otherwise enter -1: ");
                         int newQuantity = UserInputHelper.GetValidInt("Enter new product quantity if wanted, otherwise enter -1: ");
 
-                        inventory.UpdateProduct(productToEdit, newName, newPrice, newQuantity);
+                        inventory.UpdateProduct(productToEdit, newPrice, newQuantity);
                         break;
                     case 4:
                         string productToDelete = UserInputHelper.GetValidString("Enter product name to delete: ");
@@ -70,14 +69,6 @@ namespace IMS
             Console.WriteLine("[4]. Delete a product");
             Console.WriteLine("[5]. Search for a product");
             Console.WriteLine("[6]. Exit");
-        }
-
-        private static string GetConnectionString()
-        {
-            var configuration = new ConfigurationBuilder()
-                                      .AddJsonFile("appsettings.json")
-                                      .Build();
-            return configuration.GetSection("constr").Value;
         }
     }
 }
