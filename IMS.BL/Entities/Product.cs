@@ -1,13 +1,17 @@
-﻿namespace IMS.Entities
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace IMS.Entities
 {
+
+    [BsonIgnoreExtraElements]
     public class Product
     {
         private string _name;
         private decimal _price;
         private int _quantity;
 
-        public int Id { get; set; }
-
+        [BsonElement("Name")]
         public string Name
         {
             get => _name;
@@ -20,6 +24,8 @@
                 _name = value;
             }
         }
+
+        [BsonElement("Price")]
         public decimal Price
         {
             get => _price;
@@ -32,6 +38,8 @@
                 _price = value;
             }
         }
+
+        [BsonElement("Quantity")]
         public int Quantity
         {
             get => _quantity;
@@ -44,7 +52,7 @@
                 _quantity = value;
             }
         }
-        public Product(int id, string name, decimal price, int quantity)
+        public Product(string name, decimal price, int quantity)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -58,7 +66,6 @@
             {
                 throw new ArgumentException("Product quantity cannot be negative.");
             }
-            Id = id;
             _name = name;
             _price = price;
             _quantity = quantity;

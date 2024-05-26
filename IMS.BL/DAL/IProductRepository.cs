@@ -4,11 +4,10 @@ namespace IMS.DAL
 {
     public interface IProductRepository
     {
-        Product? GetById(int id);
         IEnumerable<Product> GetAll();
-        void Add(string name, decimal price, int quantity);
-        void Update(Product entity);
-        void Delete(Product entity);
+        void Add(Product product);
+        void Update(Product product);
+        void Delete(Product product);
         Product? GetByName(string name);
     }
 
